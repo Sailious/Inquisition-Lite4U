@@ -1,27 +1,49 @@
-# InquisitionAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
+# Inquisition-Lite4U
 
-## Development server
+基于Angular CLI version 17.2.3. 开发的Inquisition的简单用户前端,用过的应该都知道是哪个[后端](https://github.com/AegirTech/Inquisition)（雾
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 环境变量
 
-## Build
+修改地址后开箱即用
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+要在Vercel等平台部署这个项目，你将需要在你的src/environments/environment.ts文件中`apiUrl`修改成你自己的已部署好的[后端](https://github.com/AegirTech/Inquisition)地址（需HTTPS)
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 在本地运行
 
-## Running end-to-end tests
+Clone 这个 project
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+  git clone https://github.com/Sailious/Inquisition-Lite4U.git
+```
 
-## Further help
+前往项目目录
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+  cd my-project
+```
+
+安装依赖
+
+```bash
+  npm install
+```
+修改src/environments/environment.development.ts文件里的`apiUrl`为已部署好的[后端](https://github.com/AegirTech/Inquisition)地址
+
+启动服务器
+
+```bash
+  ng server -O
+```
+
+
+## 致谢
+
+ - [AegirTech](https://github.com/AegirTech)
+ - [糕总](https://github.com/DazeCake)
+ - [糕总和DOYO佬写的后端](https://github.com/AegirTech/Inquisition)
+
+
