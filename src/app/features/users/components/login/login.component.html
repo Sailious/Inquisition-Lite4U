@@ -1,0 +1,55 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2>欢迎回来 👋</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="account">账号</label>
+        <input 
+          type="text" 
+          id="account" 
+          formControlName="account" 
+          placeholder="请输入账号"
+          [class.is-invalid]="loginForm.get('account')?.invalid && loginForm.get('account')?.touched"
+        >
+        <div class="error-message" *ngIf="loginForm.get('account')?.invalid && loginForm.get('account')?.touched">
+          <span *ngIf="loginForm.get('account')?.errors?.['required']">账号不能为空</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">密码</label>
+        <input 
+          type="password" 
+          id="password" 
+          formControlName="password" 
+          placeholder="请输入密码"
+          [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        >
+        <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">密码不能为空</span>
+          <span *ngIf="loginForm.get('password')?.errors?.['minlength']">密码长度至少6位</span>
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="form-group remember-section">
+        <label class="remember-me">
+          <input type="checkbox"> 记住我
+        </label>
+        <a href="#" class="forgot-password">忘记密码？</a>
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="loginForm.invalid || isSubmitting"
+        class="login-button"
+      >
+        <span *ngIf="!isSubmitting">立即登录</span>
+        <span *ngIf="isSubmitting">登录中...</span>
+      </button>
+    </form>
+  </div>
+</div>

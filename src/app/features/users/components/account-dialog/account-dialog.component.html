@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>修改账号密码</h2>
+<mat-dialog-content>
+
+  <div class="account-info" *ngIf="data">
+    <p><strong>账号过期时间：</strong> {{ formatDate(data.expireTime) }}</p>
+    <p><strong>剩余刷新次数：</strong> {{ data.refresh || 0 }}</p>
+</div>
+
+  <form [formGroup]="accountForm" class="account-form">
+    <mat-form-field appearance="outline">
+      <mat-label>账号</mat-label>
+      <input matInput formControlName="account" placeholder="请输入账号">
+      <mat-error *ngIf="accountForm.get('account')?.hasError('required')">
+        账号不能为空
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>密码</mat-label>
+      <input matInput type="password" formControlName="password" placeholder="请输入密码">
+      <mat-error *ngIf="accountForm.get('password')?.hasError('required')">
+        密码不能为空
+      </mat-error>
+      <mat-error *ngIf="accountForm.get('password')?.hasError('minlength')">
+        密码长度至少6位
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>服务器</mat-label>
+      <mat-select formControlName="server">
+        <mat-option [value]="0">官服</mat-option>
+        <mat-option [value]="1">B服</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button 
+    mat-raised-button 
+    color="primary" 
+    [disabled]="accountForm.invalid || isSubmitting" 
+    (click)="onSubmit()">
+    {{ isSubmitting ? '提交中...' : '确认修改' }}
+  </button>
+
+  <button mat-button color="warn"  (click)="onCancel()">取消</button>
+
+</mat-dialog-actions>

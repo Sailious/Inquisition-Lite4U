@@ -1,0 +1,73 @@
+<div class="dashboard-container">
+  <nav class="dashboard-nav">
+    <h1>欢迎回来 Doctor</h1>
+    <div class="nav-actions">
+      <button mat-raised-button color="accent" (click)="editAccount()">修改账密</button>
+      <button mat-raised-button color="warn" (click)="logout()">退出登录</button>
+    </div>
+  </nav>
+
+  <div class="stats-grid">
+    <mat-card class="stat-card">
+      <mat-card-title>账号状态</mat-card-title>
+      <mat-card-content>
+        <p>账号：{{ accountInfo?.account || '未知' }}</p>
+        <p>服务器：{{ accountInfo?.server === 0 ? '官服' : accountInfo?.server === 1 ? 'B服' : '未知' }}</p>
+        <p>状态：{{ accountStatus?.status || '未知' }}</p>
+        <p>上次登录：{{ lastLoginTime }}</p>
+        <p>过期时间：{{ formatDate(accountInfo?.expireTime) }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" *ngIf="isFrozen" (click)="unfreezeAccount()">解冻账号</button>
+        <button mat-button color="warn" *ngIf="!isFrozen" (click)="freezeAccount()">冻结账号</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-card-title>作战信息</mat-card-title>
+      <mat-card-content>
+        <p>当前理智：{{ sanityValue }}</p>
+        <p>剩余刷新次数：{{ refreshCount }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button 
+          color="primary" 
+          (click)="startNow()"
+          [disabled]="isFrozen || refreshDisabled">
+          立即作战
+        </button>
+        <button mat-raised-button 
+          color="accent" 
+          (click)="openBattleConfig()"
+          [disabled]="isFrozen">
+          作战配置
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <mat-card class="log-card">
+    <mat-card-title>最近日志</mat-card-title>
+    <mat-card-content>
+      <div class="log-list" *ngIf="logs.length > 0; else noLogs">
+        <div class="log-item" *ngFor="let log of logs">
+          <div class="log-header">
+            <span class="log-title">{{ log.title }}</span>
+            <span class="log-time">{{ log.time }}</span>
+          </div>
+          <p class="log-content">{{ log.content }}</p>
+          <p class="log-detail" *ngIf="log.detail">{{ log.detail }}</p>
+          <img *ngIf="log.imageUrl" [src]="log.imageUrl" alt="日志图片" class="log-image">
+        </div>
+      </div>
+      <ng-template #noLogs>
+        <p class="no-logs">暂无日志记录</p>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="loading-overlay" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+

@@ -1,0 +1,176 @@
+<h2 mat-dialog-title>作战配置</h2>
+<div class="loading-overlay" *ngIf="isLoading">
+  <mat-spinner diameter="40"></mat-spinner>
+  <p>正在加载配置...</p>
+</div>
+
+<mat-dialog-content>
+  <form [formGroup]="configForm" class="config-form">
+    <div class="config-section">
+      <h3>功能配置：</h3>
+      <div class="checkbox-group">
+        <p><mat-checkbox formControlName="battle" color="primary">作战</mat-checkbox></p>
+        <p><mat-checkbox formControlName="mall" color="primary">商店</mat-checkbox></p>
+        <p><mat-checkbox formControlName="friend" color="primary">好友</mat-checkbox></p>
+        <p><mat-checkbox formControlName="activity" color="primary">活动</mat-checkbox></p>
+        <p><mat-checkbox formControlName="mail" color="primary">邮箱</mat-checkbox></p>
+      </div>
+    </div>
+
+
+    <div class="config-section">
+      <h3>公招配置：</h3>
+      <div class="checkbox-group">
+        <p><mat-checkbox formControlName="recruit" color="primary">启用公招</mat-checkbox></p>
+        <p><mat-checkbox formControlName="novice" color="primary">小车</mat-checkbox></p>
+        <p><mat-checkbox formControlName="fourStar" color="primary">四星干员</mat-checkbox></p>
+        <p><mat-checkbox formControlName="fiveStar" color="primary">五星干员</mat-checkbox></p>
+        <p><mat-checkbox formControlName="sixStar" color="primary">六星干员</mat-checkbox></p>
+        <p><mat-checkbox formControlName="other" color="primary">其他标签</mat-checkbox></p>
+      </div>
+    </div>
+
+
+    <div class="config-section">
+      <h3>基建配置：</h3>
+      <div class="checkbox-group">
+        <p><mat-checkbox formControlName="schedule" color="primary">自动排班</mat-checkbox></p>
+        <p><mat-checkbox formControlName="deputy" color="primary">更换副手</mat-checkbox></p>
+        <p><mat-checkbox formControlName="collect" color="primary">资源收集</mat-checkbox></p>
+        <p><mat-checkbox formControlName="accelerate" color="primary">制造加速</mat-checkbox></p>
+        <p><mat-checkbox formControlName="drone" color="primary">线索交流</mat-checkbox></p>
+      </div>
+    </div>
+
+
+    <div class="config-section">
+      <h3>作战配置：</h3>
+      <div class="task-list" [formArrayName]="'tasks'">
+        <div
+          class="task-item"
+          *ngFor="let task of tasksFormArray.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <mat-form-field appearance="outline" class="task-level">
+            <mat-label>关卡类型</mat-label>
+            <mat-select formControlName="level" required>
+              <mat-option *ngFor="let level of fightLevels" [value]="level">
+                {{ level | uppercase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="task-num">
+            <mat-label>执行次数</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="num"
+              min="1"
+              required
+            >
+          </mat-form-field>
+
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="moveUp(i)"
+            class="move-btn"
+            [disabled]="i === 0"
+          >
+            <span class="material-icons">arrow_upward</span>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="moveDown(i)"
+            class="move-btn"
+            [disabled]="i === tasksFormArray.length - 1"
+          >
+            <span class="material-icons">arrow_downward</span>
+          </button>
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="removeTask(i)"
+            class="delete-btn"
+            [disabled]="tasksFormArray.length <= 1"
+          >
+            <span class="material-icons">delete</span>
+          </button>
+        </div>
+      </div>
+
+      <button
+        mat-button
+        color="primary"
+        class="add-task-btn"
+        (click)="addTask()"
+      >
+        <span class="material-icons">add</span> 新增任务
+      </button>
+      <div *ngIf="tasksFormArray.hasError('minLength')" class="error-message">
+        至少需要配置1个作战任务
+      </div>
+    </div>
+
+
+    <div class="config-section">
+      <h3>理智恢复：</h3>
+      <div class="resource-inputs">
+        <div class="resource-item">
+          <span class="material-icons">local_pharmacy</span>
+          <mat-form-field appearance="outline">
+            <mat-label>理智药剂</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="medicine"
+              min="0"
+              required
+            >
+          </mat-form-field>
+        </div>
+
+        <div class="resource-item">
+          <span class="material-icons">monetization_on</span>
+
+          <mat-form-field appearance="outline">
+            <mat-label>使用源石(此项过于敏感,故此关闭)</mat-label>
+            <input
+              matInput [disabled]="true" [value]=0
+              formControlName="stone"
+            >
+          </mat-form-field>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="config-section">
+      <h3>生效时间：</h3>
+      <div class="checkbox-group">
+        <p><mat-checkbox formControlName="monday" color="primary">周一</mat-checkbox></p>
+        <p><mat-checkbox formControlName="tuesday" color="primary">周二</mat-checkbox></p>
+        <p><mat-checkbox formControlName="wednesday" color="primary">周三</mat-checkbox></p>
+        <p><mat-checkbox formControlName="thursday" color="primary">周四</mat-checkbox></p>
+        <p><mat-checkbox formControlName="friday" color="primary">周五</mat-checkbox></p>
+        <p><mat-checkbox formControlName="saturday" color="primary">周六</mat-checkbox></p>
+        <p><mat-checkbox formControlName="sunday" color="primary">周日</mat-checkbox></p>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>取消</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="configForm.invalid || isSubmitting || isLoading"
+    (click)="onSubmit()"
+  >
+    {{ isSubmitting ? '保存中...' : '保存配置' }}
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,195 @@
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1rem;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.config-section {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  border-left: 4px solid #3f51b5;
+  
+  h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #3f51b5;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  
+  mat-checkbox {
+    min-width: 80px;
+  }
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  mat-form-field {
+    flex: 1;
+  }
+  
+  button {
+    margin-top: -16px; // 调整按钮位置与输入框对齐
+  }
+}
+
+.add-task-btn {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  border: 1px dashed #3f51b5;
+  border-radius: 4px;
+  background-color: rgba(63, 81, 181, 0.05);
+  
+  &:hover {
+    background-color: rgba(63, 81, 181, 0.1);
+  }
+}
+
+.resource-inputs {
+  display: flex;
+  gap: 20px; /* Increased gap for better spacing */
+  align-items: center; /* Align items vertically */
+}
+
+.resource-item {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Increased gap */
+  flex: 1;
+
+  .resource-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #3f51b5;
+    color: white;
+    border-radius: 50%;
+    font-size: 14px;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+  }
+  
+  mat-form-field {
+    width: 100px; /* Increased width for input fields */
+    flex-grow: 1; /* Allow form field to grow */
+  }
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 15px;
+
+}
+
+::ng-deep .mat-mdc-form-field {
+  width: 100%;
+}
+
+:host ::ng-deep {
+  // 对话框容器样式
+  .mat-mdc-dialog-container {
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .mat-mdc-form-field-focus-overlay {
+    background-color: rgba(63, 81, 181, 0.05);
+  }
+  
+  .mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline {
+    color: rgba(0, 0, 0, 0.12);
+  }
+  
+  .mat-mdc-form-field-appearance-outline.mat-focused .mat-mdc-form-field-outline {
+    color: #3f51b5;
+  }
+  
+  // 调整对话框标题样式
+  .mat-mdc-dialog-title {
+    color: #3f51b5;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 0;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+    
+  }
+  
+  // 调整对话框内容区域样式
+  .mat-mdc-dialog-content {
+    padding: 1rem;
+    overflow-y: hidden;
+  }
+  
+  // 调整对话框按钮区域样式
+  .mat-mdc-dialog-actions {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+  }
+  
+  // 调整按钮样式
+  .mat-mdc-raised-button.mat-primary {
+    background-color: #3f51b5;
+    color: white;
+    border-radius: 15px;
+    
+    &:hover {
+      background-color: darken(#3f51b5, 10%);
+    }
+  }
+  
+  .mat-mdc-button {
+    border-radius: 15px;
+  }
+  
+  // 调整复选框样式
+  .mat-mdc-checkbox .mdc-checkbox .mdc-checkbox__native-control:enabled:checked ~ .mdc-checkbox__background {
+    background-color: #3f51b5;
+    border-color: #3f51b5;
+  }
+}
+
+// 自定义滚动条样式
+.config-form::-webkit-scrollbar {
+  width: 6px;
+}
+
+.config-form::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.config-form::-webkit-scrollbar-thumb {
+  background: #3f51b5;
+  border-radius: 3px;
+}
+
+.config-form::-webkit-scrollbar-thumb:hover {
+  background: darken(#3f51b5, 10%);
+}
