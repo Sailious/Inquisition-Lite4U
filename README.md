@@ -23,7 +23,7 @@ Clone 这个 project
 前往项目目录
 
 ```bash
-  cd my-project
+  cd Inquisition-Lite4U
 ```
 
 安装依赖
